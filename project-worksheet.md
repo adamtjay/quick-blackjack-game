@@ -23,9 +23,13 @@ Use this section to describe your final project and perhaps any links to relevan
 
 Include images of your wireframes.
 
+----->>> Picture: /img/planning-sketch.jpg
+
 ## Priority Matrix
 
 Include a full list of features that have been prioritized based on the `Time and Importance` Matix.  
+
+----->>> Picture: /img/priority-matrix.jpg
 
 ## Game Components
 

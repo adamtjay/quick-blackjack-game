@@ -63,13 +63,16 @@ Time frames are also key in the development cycle.  You have limited time to cod
 
 | Component | Priority | Estimated Time | Time Invetsted | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
-| Component 1 | H | 10hrs| 12hrs | 12hrs |
 
-| Total |  | 10hrs| 12hrs | 12hrs |
+  | Creating deck & hands | H | 10hrs| -hrs | -hrs |
+  | Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
+  | Coin betting system | H | 10hrs| -hrs | -hrs |
+  | Double-down & split | H-M | 10hrs| -hrs | -hrs |
+
+  | Viewing used cards list | M-L | 10hrs| -hrs | -hrs |
+  | 2-player mode(s) | L | 10hrs| -hrs | -hrs |
+
+  | Total |  | 40-60hrs| -hrs | -hrs |
 
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.

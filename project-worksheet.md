@@ -72,7 +72,7 @@ Time frames are also key in the development cycle.  You have limited time to cod
 | Tips based on hand | M | 10hrs| -hrs | -hrs |
 | Choose # of decks (4-7) | L | 10hrs | -hrs | -hrs |
 | 2-player mode(s) | L | 10hrs| -hrs | -hrs |
-
+| --- | :---: |  :---: | :---: | :---: |
 | --- Total --- |  | 50-70hrs| -hrs | -hrs |
 
 ## Helper Functions
@@ -80,10 +80,10 @@ Helper functions should be generic enought that they can be reused in other appl
 
 | Function | Description |
 | --- | :---: |  
-    | functionName | x |
-    | functionName | x |
-    | functionName | x |
-    | functionName | x |
+| functionName | x |
+| functionName | x |
+| functionName | x |
+| functionName | x |
 
 
 ## Additional Libraries

@@ -27,7 +27,7 @@ Include images of your wireframes.
 
 ## Priority Matrix
 
-Include a full list of features that have been prioritized based on the `Time and Importance` Matix.  
+Include a full list of features that have been prioritized based on the `Time and Importance` Matrix.  
 
 ----->>> Picture: /img/priority-matrix.jpg
 
@@ -40,7 +40,7 @@ What will a player see when they start your game?
 What will a player see when the game is started?
 
 ### Playing The Game
-What will be the flow of the game, what will the user be expeted to do and what will the user expect from the gam
+What will be the flow of the game, what will the user be expected to do and what will the user expect from the gam
 
 ### Winning The Game
 What does it look like when the game ends, what determines winning or losing?
@@ -57,36 +57,33 @@ Include the full list of features that will be part of your MVP
 Include the full list of features that you are considering for POST MVP
 ## Functional Components
 
-Based on the initial logic defined in the previous game phases section try and breakdown the logic further into functional components, and by that we mean functions.  Does your logic indicate that code could be encapsulated for the purpose of reusablility.  Once a function has been defined it can then be incorporated into a class as a method.
+Based on the initial logic defined in the previous game phases section try and breakdown the logic further into functional components, and by that we mean functions.  Does your logic indicate that code could be encapsulated for the purpose of reusability.  Once a function has been defined it can then be incorporated into a class as a method.
 
 Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evaluate game possibilities based on time needed and the actual time you have before game must be submitted.
 
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
+| Planning & wireframes | H | 3hrs | 3hrs | 3hrs |
+| Creating deck & hands | H | 10hrs| -hrs | -hrs |
+| Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
+| Coin betting system | H | 10hrs| -hrs | -hrs |
+| Double-down & split | M | 10hrs| -hrs | -hrs |
+| Viewable used cards list | M | 10hrs| -hrs | -hrs |
+| Tips based on hand | M | 10hrs| -hrs | -hrs |
+| Choose # of decks (4-7) | L | 10hrs | -hrs | -hrs |
+| 2-player mode(s) | L | 10hrs| -hrs | -hrs |
 
-  | Planning & wireframes | H | 3hrs | 3hrs | 3hrs |
-  | Creating deck & hands | H | 10hrs| -hrs | -hrs |
-  | Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
-  | Coin betting system | H | 10hrs| -hrs | -hrs |
-
-  | Double-down & split | M | 10hrs| -hrs | -hrs |
-  | Viewable used cards list | M | 10hrs| -hrs | -hrs |
-  | Tips based on hand | M | 10hrs| -hrs | -hrs |
-
-  | Choose # of decks (4-7) | L | 10hrs | -hrs | -hrs |
-  | 2-player mode(s) | L | 10hrs| -hrs | -hrs |
-
-  | --- Total --- |  | 50-70hrs| -hrs | -hrs |
+| --- Total --- |  | 50-70hrs| -hrs | -hrs |
 
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.
 
 | Function | Description |
 | --- | :---: |  
-| Capitalize | This will capitalize the first letter in a string |
-| Capitalize | This will capitalize the first letter in a string |
-| Capitalize | This will capitalize the first letter in a string |
-| Capitalize | This will capitalize the first letter in a string |
+    | functionName | x |
+    | functionName | x |
+    | functionName | x |
+    | functionName | x |
 
 
 ## Additional Libraries

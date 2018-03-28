@@ -67,9 +67,11 @@ Time frames are also key in the development cycle.  You have limited time to cod
   | Creating deck & hands | H | 10hrs| -hrs | -hrs |
   | Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
   | Coin betting system | H | 10hrs| -hrs | -hrs |
-  | Double-down & split | H-M | 10hrs| -hrs | -hrs |
 
-  | Viewing used cards list | M-L | 10hrs| -hrs | -hrs |
+  | Double-down & split | M | 10hrs| -hrs | -hrs |
+  | Viewable used cards list | M | 10hrs| -hrs | -hrs |
+  | Tips based on hand | M | 10hrs| -hrs | -hrs |
+
   | 2-player mode(s) | L | 10hrs| -hrs | -hrs |
 
   | Total |  | 40-60hrs| -hrs | -hrs |

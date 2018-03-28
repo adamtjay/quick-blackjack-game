@@ -59,11 +59,12 @@ Include the full list of features that you are considering for POST MVP
 
 Based on the initial logic defined in the previous game phases section try and breakdown the logic further into functional components, and by that we mean functions.  Does your logic indicate that code could be encapsulated for the purpose of reusablility.  Once a function has been defined it can then be incorporated into a class as a method.
 
-Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evalute game possibilities based on time needed and the actual time you have before game must be submitted.
+Time frames are also key in the development cycle.  You have limited time to code all phases of the game.  Your estimates can then be used to evaluate game possibilities based on time needed and the actual time you have before game must be submitted.
 
-| Component | Priority | Estimated Time | Time Invetsted | Actual Time |
+| Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
 
+  | Planning & wireframes | H | 3hrs | 3hrs | 3hrs |
   | Creating deck & hands | H | 10hrs| -hrs | -hrs |
   | Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
   | Coin betting system | H | 10hrs| -hrs | -hrs |
@@ -72,9 +73,10 @@ Time frames are also key in the development cycle.  You have limited time to cod
   | Viewable used cards list | M | 10hrs| -hrs | -hrs |
   | Tips based on hand | M | 10hrs| -hrs | -hrs |
 
+  | Choose # of decks (4-7) | L | 10hrs | -hrs | -hrs |
   | 2-player mode(s) | L | 10hrs| -hrs | -hrs |
 
-  | Total |  | 50-70hrs| -hrs | -hrs |
+  | --- Total --- |  | 50-70hrs| -hrs | -hrs |
 
 ## Helper Functions
 Helper functions should be generic enought that they can be reused in other applications. Use this section to document all helper functions that fall into this category.

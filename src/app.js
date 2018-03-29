@@ -4,11 +4,11 @@ $(document).ready(function() {
 
 // Wiggle cards on hover animation
 
-    $('.card').on('mouseover', function() {
+  /*  $('.card').on('mouseover', function() {
       $(this)
         .animate({'left':(-1)+'px'},100)
         .animate({'left':(+2)+'px'},100)
-        .animate({'left':(-1)+'px'},100)});
+        .animate({'left':(-1)+'px'},100)});*/
 
 let activeDeck = [];
 let retiredCards = [];
@@ -24,7 +24,7 @@ class Card {
   } // end Card class
 
 function createDeck(){
-    this.names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Joker', 'Queen', 'King'];
+    this.names = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
     this.suits = ['hearts','diamonds','spades','clubs'];
     let cards = [];
 
@@ -59,16 +59,16 @@ createDeck();
 shuffle(activeDeck);
 //console.log(activeDeck);
 
-function generatePlayerCard(cardValue, cardName, cardSuit) {
-  let $cardHolder = $('.player-card-holder');
-  let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
-  $cardHolder.append($genCard);
-  }
-
-  function generateHouseCard(cardValue, cardName, cardSuit) {
-    let $cardHolder2 = $('.house-card-holder');
-    let $genCard2 = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
-    $cardHolder2.append($genCard2);
+function generateCard(player, cardValue, cardName, cardSuit) {
+  if (player === "house") {
+      let $cardHolder = $('.house-card-holder');
+      let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
+      $cardHolder.append($genCard);
+  } else {
+    let $cardHolder = $('.player-card-holder');
+    let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
+    $cardHolder.append($genCard);
+      }
     }
 
 class Player {
@@ -78,36 +78,46 @@ class Player {
 
       this.totalCoins = 5;
       this.playerHand = [];
-
   }
   dealCards(num) {
+    let thePlayer = this.playerName;
     for (let i=0; i<num; i++) {
       this.playerHand.push(activeDeck[i]);
-      activeDeck.shift();
       let tempValue = activeDeck[i].value;
       let tempName = activeDeck[i].name;
       let tempSuit = activeDeck[i].suit;
+      activeDeck.shift();
 
-      generateCard(tempValue, tempName, tempSuit);
+
+      generateCard(thePlayer, tempValue, tempName, tempSuit);
     }
   };
+
+  listHand() {
+    console.log(`${this.playerName}'s hand: `);
+    for (let i=0; i< this.playerHand.length; i++) {
+      console.log(this.playerHand[i].name);
+    }
+  }
+
 }
 
+
+let house = new Player(0, "house");
 let adam = new Player(1, "Adam");
-let house = new Player(2, "House");
 
-adam.dealCards(5);
 house.dealCards(5);
+adam.dealCards(5);
 
-console.log(`Adam's hand: ${adam.playerHand}`);
-console.log(`Dealer's hand: ${house.playerHand}`)
-console.log(`In deck: ${activeDeck}`);
+adam.listHand();
+console.log(activeDeck);
 
-
-
-class Hand {
-
-}
+// Wiggle cards on hover animation
+$('.card').on('mouseover', function() {
+  $(this)
+    .animate({'left':(-1)+'px'},100)
+    .animate({'left':(+2)+'px'},100)
+    .animate({'left':(-1)+'px'},100)}); // end Wiggle animation
 
 
 

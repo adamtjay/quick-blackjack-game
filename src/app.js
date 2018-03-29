@@ -91,7 +91,7 @@ class Player {
   };
 
   listHand() {
-    console.log(`${this.playerName}'s hand: `);
+    console.log(`\*\* ${this.playerName}'s hand: `);
     for (let i=0; i< this.playerHand.length; i++) {
       console.log(this.playerHand[i].name);
     }
@@ -101,7 +101,7 @@ class Player {
 
 createDeck();
 shuffle(activeDeck);
-
+//console.log(activeDeck);
 
 let house = new Player(0, "house");
 let adam = new Player(1, "Adam");
@@ -110,9 +110,11 @@ house.dealCards(5);
 adam.dealCards(5);
 
 adam.listHand();
-console.log(activeDeck);
+house.listHand();
 
-// Wiggle cards on hover animation
+
+
+// DO NOT REMOVE -- Wiggle cards on hover animation
 $('.card').on('mouseover', function() {
   $(this)
     .animate({'left':(-1)+'px'},100)

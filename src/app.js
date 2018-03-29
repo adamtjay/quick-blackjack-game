@@ -55,9 +55,6 @@ function shuffle(cards) {   //using Fisher-Yates random algorithm
       cards[randomIndex] = temporaryValue;
     }}
 
-createDeck();
-shuffle(activeDeck);
-//console.log(activeDeck);
 
 function generateCard(player, cardValue, cardName, cardSuit) {
   if (player === "house") {
@@ -101,6 +98,9 @@ class Player {
   }
 
 }
+
+createDeck();
+shuffle(activeDeck);
 
 
 let house = new Player(0, "house");

@@ -37,10 +37,10 @@ Deck class
     -> buildDeck()
     -> shuffleDeck()
     -> dealHands(num)
-      - drawCard(num)
+      - drawCard(num) * also generates cards in JS, based on suit & value
     -> hit()
     -> stay()
-    -> checkIfBust()
+    /*-> checkIfBust()*/
     -> doubleDown()
       - checkCoins(currentBet)
       - doubleBet()

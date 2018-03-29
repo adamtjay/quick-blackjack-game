@@ -1,0 +1,117 @@
+body {
+  margin: 0 auto;
+  max-width: 80%;
+  text-align: center;
+}
+
+.main {
+  border: 1px solid black;
+  height: 500px;
+  border-radius: 20px;
+  background: linear-gradient(darkgreen, green);
+}
+
+.dealer-table {
+  border: .5px solid black;
+  margin: 0 auto;
+  top: 2px;
+  width: 700px;
+  height: 200px;
+  background: linear-gradient(#A0522D, #D2691E);
+  position: relative;
+  border-radius: 10px;
+}
+
+.player-table {
+  border: .5px solid black;
+  margin: 0 auto;
+  top: 95px;
+  width: 700px;
+  height: 200px;
+  background: linear-gradient(#D2691E, #A0522D);
+  position: relative;
+  border-radius: 10px;
+}
+
+.player-card-holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid black;
+  height: 100px;
+  border-radius: 15px;
+  top: 80px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.house-card-holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 400px;
+  border: 1px solid black;
+  height: 100px;
+  border-radius: 15px;
+  top: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  top: 5px;
+  left: 5px;
+  margin: 0 auto;
+  margin-left: 5px;
+  height: 85px;
+  width: 60px;
+  border: 1px solid black;
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  float: left;
+}
+
+.cardContent {
+  margin: 0 auto;
+  margin-top: -12px;
+  font-weight: bold;
+  /*make text un-selectable*/
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.card-icon-spades {
+  content:url(../img/suit_spades.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 23px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-hearts {
+  content:url(../img/suit_hearts.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 28px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-clubs {
+  content:url(../img/suit_clubs.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 28px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-diamonds {
+  content:url(../img/suit_diamond.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 25px;
+  position: relative;
+  margin: 0 auto;
+}

@@ -34,7 +34,7 @@ function createDeck(){
           }
       }
 
-      console.log(activeDeck);
+      //console.log(activeDeck);
       return cards;
   }
 
@@ -60,7 +60,14 @@ function generateCard(thePlayer, cardValue, cardName, cardSuit) {
     let $cardHolder = $('.player-card-holder');
     let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
     $cardHolder.append($genCard);
+  } // put the first card face-down, by making it all white
+    function hideFirstCard() {
+        let $firstInner = $('.cardContent').first();
+        $firstInner.css('display', 'none');
+        let $firstIcon = $('.cardContent').first().prev().prev();
+        $firstIcon.css('display', 'none');
       }
+    hideFirstCard();
     }
 
 class Player {
@@ -108,18 +115,22 @@ class Player {
 
 createDeck();
 shuffle(activeDeck);
-//console.log(activeDeck);
 
 let house = new Player(0, "House-AI");
 let adam = new Player(1, "Adam");
 
-house.dealCards(5);
-adam.dealCards(5);
+house.dealCards(2);
+adam.dealCards(2);
 
-adam.listHand();
 house.listHand();
+//adam.listHand();
+
+console.log(activeDeck);
 
 
+
+
+// ** Do not delete below this **
 
 // -- Wiggle cards on mouseover animation --
 $('.card').on('mouseover', function() {

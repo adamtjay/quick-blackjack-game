@@ -58,10 +58,17 @@ function generateCard(thePlayer, cardValue, cardName, cardSuit) {
       let $cardHolder = $('.house-card-holder');
       let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
       $cardHolder.append($genCard);
+      house.checkFor17();
+      house.checkForBust();
+      house.checkForBlackjack();
+
   } else { // Human player goes to main card holder on bottom
       let $cardHolder = $('.player-card-holder');
       let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
       $cardHolder.append($genCard);
+      player1.checkForBust();
+      player1.checkForBlackjack();
+
   } // put the first card face-down, by making it all white
     function hideFirstCard() {
         let $firstInner = $('.cardContent').first();
@@ -110,14 +117,18 @@ class Player {
         generateCard(thePlayer, tempValue, tempName, tempSuit);
 
         // run check Functions
-        this.checkForBust();
-        this.checkForBlackjack();
+    //    this.checkForBust();
+    //    this.checkForBlackjack();
         // if Dealer check if they've reached 17
-        if (this.playerName === "House-AI") {
+        //if (this.playerName === "House-AI") {
+        //  this.checkFor17()};
+        }
+      /*  if (this.playerName === "House-AI") {
           this.checkFor17();
         }
-
-      }};
+        this.checkForBust();
+        this.checkForBlackjack();*/
+      };
 
   listHand() { // log or get names of cards in hand
     console.log(`\*\* ${this.playerName}'s hand: `);
@@ -127,53 +138,72 @@ class Player {
         }
 
     checkForBlackjack() {
+      let $name = this.playerName;
+        //setTimeout seems to cause this.name to be undefined, so bind it to $name
       this.$handSum = 0;
       for (let i=0; i < this.playerHand.length; i++) {
         this.$handSum += this.playerHand[i].value;
       }
       if (this.$handSum === 21) {
-        gameWon = 1;
+        if ($name != "House-AI") {
+          gameWon = 1;
+          }
         turnCounter += 1;
-        alert(`${this.playerName} has Blackjack!`);
+        console.log(`${$name} has Blackjack!`);
+        setTimeout(function(){alert(`${$name} has Blackjack!`)}, 200);
       } else {
-        console.log(`${this.playerName} does not have Blackjack`);
+        //console.log(`${$name} does not have Blackjack`);
         this.$handSum = 0;
         //player1.checkGameStatus();
-
       }
     }
+
 
     checkForBust() {
-      this.$handSum = 0;
-      for (let i=0; i<this.playerHand.length; i++) {
-        this.$handSum += this.playerHand[i].value;
-      }
-      if (this.$handSum > 21) {
-      //  gameWon = -1;
-        //turnCounter = 0;
-        //gameStarted = 0;
-        alert(`${this.playerName} is bust over 21`);
-        player1.checkGameStatus();
+      let $name = this.playerName;
+        //setTimeout seems to cause this.name to be undefined, so bind it to $name
+        this.$handSum = 0;
+        for (let i=0; i<this.playerHand.length; i++) {
+          this.$handSum += this.playerHand[i].value;
+        }
+        if (this.$handSum > 21) {
+        //  gameWon = -1;
+          turnCounter = 0;
+          //gameStarted = 0;
+          setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
 
-      }
-      //player1.checkGameStatus();
+          if ($name != "House-AI") {
+            restartRound();
+          }
 
-    }
+          //player1.checkGameStatus();
+
+        }
+        //player1.checkGameStatus();
+      }
+
+
 
     checkFor17() {
+      let $name = this.playerName;
+        //setTimeout seems to cause this.name to be undefined, so bind it to $name
       this.$handSum = 0;
       for (let i=0; i<this.playerHand.length; i++) {
         this.$handSum += this.playerHand[i].value;
       }
       if (this.$handSum > 17) {
-        // ** What should happen after dealer stop @ 17?
-        alert(`${this.playerName} has reached 17`);
+          console.log(`${$name} has reached 17`);
+          return true;
       }
     }
 
     getNameAndBet() {
         //let $modal = $('.modal');
         //$modal.css('display', 'block');
+
+        //restart game mechanics
+        remainingCoins = 5;
+
         let $modalContent = $('.modal-content-newgame');
         $modalContent.css('display', 'block');
 
@@ -210,33 +240,113 @@ class Player {
 
             $modalContent.css('display', 'none');
 
+            restartRound();
+
           });
         }
 
     checkGameStatus() {
       // out of coins, game over
-      if (remainingCoins <= 0) {
-        alert('Out of coins, game over. Please try again');
-        this.getNameAndBet();
+      if (remainingCoins === 0 || remainingCoins < 0) {
+        setTimeout(function(){alert('Out of coins, game over. Please try again')}, 200);
+        setTimeout(function(){player1.getNameAndBet()}, 200);
       }
       // game just started
       if (gameStarted === 0) {
-          this.getNameAndBet();
+          setTimeout(function(){player1.getNameAndBet()}, 200);
       }
       // in between rounds during game
-      if (remainingCoins > 0 && turnCounter === 1) {
-        this.getBet();
+      if (remainingCoins > 0 && gameStarted != 0) {
+        setTimeout(function(){player1.getBet()}, 200);
       }
     }
 
   } // ---- end Player class
 
 
+// clears board + pushes to retiredCards, update coins, get new bet, start round again
+function restartRound() { // needs updating *** trigger from getBet
+
+  //compareHands();
+
+  if (gameWon === 1) {
+    remainingCoins += currentBet;
+  } else {remainingCoins -= currentBet};
+
+  retiredCards.push(player1.playerHand);
+  retiredCards.push(house.playerHand);
+
+  player1.checkGameStatus();
+
+}
+
+function restartGame() { // needs updating *** trigger from getNameAndBet
+  if (gameWon === 1) {
+    remainingCoins += currentBet;
+  } else {remainingCoins -= currentBet};
+
+  retiredCards.push(player1.playerHand);
+  retiredCards.push(house.playerHand);
+
+  player1.checkGameStatus();
+
+}
+
+
+function startDealerTurn() {
+  // checks and can draw card multiple times, just to make sure it has enough cards
+      if (house.checkFor17() === true) {
+            //console.log('Dealer has 17');
+            return true;
+          } else {
+            house.dealCards(1);
+          }
+      if (house.checkFor17() === true) {
+            //console.log('Dealer has 17');
+            return true;
+          } else {
+            house.dealCards(1);
+          }
+      if (house.checkFor17() === true) {
+            //console.log('Dealer has 17');
+            return true;
+          } else {
+            house.dealCards(1);
+          }
+      if (house.checkFor17() === true) {
+            //console.log('Dealer has 17');
+            return true;
+          } else {
+            house.dealCards(1);
+          }
+    // once dealer is done, game is either over(!), or you compare hands
+  compareHands();
+}
+
+function compareHands() {
+    let playersHand = 0;
+    let dealersHand = 0;
+    //Sum values of both their hands separately
+    for (let i=0; i<player1.playerHand.length; i++) {
+      playersHand += player1.playerHand[i].value;
+        }
+    for (let i=0; i<house.playerHand.length; i++) {
+      dealersHand += house.playerHand[i].value;
+    }
+    //Reponse once a round winner is determined
+    if (playersHand > dealersHand && playersHand < 22) {
+      gameWon = 1;
+      console.log(`${player1.playerName} wins the round!`)};
+    if (dealersHand > playersHand && dealersHand < 22) {
+      gameWon = -1;
+      console.log(`Dealer wins`)};
+      }
+
+
 // Turn Taking logic
 
 function takeTurns() {
   //check for Player turn
-
   player1.checkGameStatus();
 
   if (gameWon === -1 && turnCounter === 0) {
@@ -246,7 +356,12 @@ function takeTurns() {
   }
   if (gameWon === 0 && turnCounter === 2) {
     console.log('Start dealer turn');
+    startDealerTurn();
+
+    restartRound();
+  //  compareHands();
   }
+
 }
 
 
@@ -260,6 +375,8 @@ $('.hit-button').on('click', function() {
 // *** STAY button logic
 $('.stay-button').on('click', function() {
     turnCounter += 1;
+
+    startDealerTurn();
     console.log('Stay clicked');
     });
 

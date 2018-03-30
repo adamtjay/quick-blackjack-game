@@ -64,10 +64,11 @@ body {
   width: 60px;
   border: 1px solid black;
   position: relative;
-  background-color: white;
+  background:  linear-gradient(#f3fbcb, #FFFFFF);
   border-radius: 10px;
   float: left;
 }
+
 
 .cardContent {
   margin: 0 auto;
@@ -133,6 +134,7 @@ body {
 }
 
 .main-buttons button {
+  background:  linear-gradient(#dbfd2b, #FFFFFF);
   font-weight: bold;
   letter-spacing: 2px;
   font-size: 25px;
@@ -142,7 +144,7 @@ body {
 }
 
 .main-buttons button:hover {
-  background-color: blue;
+  background: linear-gradient(#9baaf4, #3b4ca1);
 }
 
 .bet-display {

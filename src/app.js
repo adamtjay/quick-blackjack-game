@@ -42,26 +42,21 @@ function shuffle(cards) {   //using Fisher-Yates random algorithm
 
     let currentIndex = cards.length, temporaryValue, randomIndex;
 
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
-      // And swap it with the current element.
       temporaryValue = cards[currentIndex];
       cards[currentIndex] = cards[randomIndex];
       cards[randomIndex] = temporaryValue;
     }}
 
 
-function generateCard(player, cardValue, cardName, cardSuit) {
-  if (player === "house") {
+function generateCard(thePlayer, cardValue, cardName, cardSuit) {
+  if (thePlayer === "House-AI") { // House-AI goes to a different card holder div on top
       let $cardHolder = $('.house-card-holder');
       let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
       $cardHolder.append($genCard);
-  } else {
+  } else { // Human player goes to main card holder on bottom
     let $cardHolder = $('.player-card-holder');
     let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
     $cardHolder.append($genCard);
@@ -77,6 +72,7 @@ class Player {
       this.playerHand = [];
   }
   dealCards(num) {
+    // push specified # of cards from deck into hand, then remove from deck
     let thePlayer = this.playerName;
     for (let i=0; i<num; i++) {
       this.playerHand.push(activeDeck[i]);
@@ -84,11 +80,22 @@ class Player {
       let tempName = activeDeck[i].name;
       let tempSuit = activeDeck[i].suit;
       activeDeck.shift();
-
-
-      generateCard(thePlayer, tempValue, tempName, tempSuit);
     }
-  };
+    // callback function which sorts cards based on Value property
+    function compareValues(a, b) {
+      if (a.value < b.value) return -1;
+      if (a.value > b.value) return 1;
+      return 0;
+    } // sort hand with the callback as arg
+    this.playerHand.sort(compareValues);
+
+    // loop again through the now-sorted array, run generateCard
+      for (let i=0; i<this.playerHand.length; i++) {
+        let tempValue = this.playerHand[i].value;
+        let tempName = this.playerHand[i].name;
+        let tempSuit = this.playerHand[i].suit;
+        generateCard(thePlayer, tempValue, tempName, tempSuit);
+      }};
 
   listHand() {
     console.log(`\*\* ${this.playerName}'s hand: `);
@@ -103,7 +110,7 @@ createDeck();
 shuffle(activeDeck);
 //console.log(activeDeck);
 
-let house = new Player(0, "house");
+let house = new Player(0, "House-AI");
 let adam = new Player(1, "Adam");
 
 house.dealCards(5);
@@ -114,12 +121,11 @@ house.listHand();
 
 
 
-// DO NOT REMOVE -- Wiggle cards on hover animation
+// -- Wiggle cards on mouseover animation --
 $('.card').on('mouseover', function() {
   $(this)
-    .animate({'left':(-1)+'px'},100)
-    .animate({'left':(+2)+'px'},100)
-    .animate({'left':(-1)+'px'},100)}); // end Wiggle animation
+    .animate({'left':(-0.5)+'px'},400)
+    .animate({'left':(+0.5)+'px'},400)}); // end Wiggle animation
 
 
 

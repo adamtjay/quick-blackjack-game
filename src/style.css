@@ -36,7 +36,7 @@ body {
 .player-card-holder {
   position: relative;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 65%;
   border: 1px solid black;
   height: 100px;
   border-radius: 15px;
@@ -47,7 +47,7 @@ body {
 .house-card-holder {
   position: relative;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 65%;
   border: 1px solid black;
   height: 100px;
   border-radius: 15px;
@@ -169,4 +169,102 @@ body {
   width: 80px;
   height: 40px;
 /*  background-color: yellow;*/
+}
+
+/*.modal {     ** OVERLAY that goes behind Modal, currently not using
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+} */
+
+.modal-content {
+  top: 20%;
+  font-size: 30px;
+  position: absolute;
+  z-index: 5000;
+  display: none;
+    background-color: #fefefe;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 50%;
+}
+
+.modal-content button {
+  top: 20%;
+  font-size: 30px;
+}
+
+.modal-content input {
+  height: 50px;
+  width: 200px;
+}
+
+.modal-content input:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content button:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+span {
+display:none;
+}
+
+.modal-content-newgame {
+  top: 20%;
+  font-size: 30px;
+  position: absolute;
+  z-index: 5000;
+  display: none;
+    background-color: #fefefe;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    height: 50%;
+    left: 8%;
+}
+
+.modal-content-newgame button {
+  top: 20%;
+  font-size: 30px;
+}
+
+.modal-content-newgame input {
+  height: 50px;
+  width: 200px;
+}
+
+.modal-content-newgame input:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content-newgame button:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
 }

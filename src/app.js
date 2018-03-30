@@ -2,10 +2,15 @@
 
 $(document).ready(function() {
 
+  // will these inits work in a Game state class?
+
 let activeDeck = [];
 let retiredCards = [];
 let remainingCoins = 5;
 let currentBet = 0;
+let turnCounter = 1;
+let gameWon = -1; // 0 means game has started
+
 
 //Classes and objects
 
@@ -24,7 +29,11 @@ function createDeck(){
 
       for(var s = 0; s < this.suits.length; s++) {
           for(let n = 0; n < this.names.length; n++) {
+            if (this.names[n] === 'Jack' || this.names[n] === 'Queen' || this.names[n] === 'King') {
+              activeDeck.push(new Card(10, this.names[n], this.suits[s]));
+            } else {
               activeDeck.push(new Card(n+1, this.names[n], this.suits[s]));
+            }
           }
       }
       return cards;
@@ -49,9 +58,9 @@ function generateCard(thePlayer, cardValue, cardName, cardSuit) {
       let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
       $cardHolder.append($genCard);
   } else { // Human player goes to main card holder on bottom
-    let $cardHolder = $('.player-card-holder');
-    let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
-    $cardHolder.append($genCard);
+      let $cardHolder = $('.player-card-holder');
+      let $genCard = $(`<div class="card"><div class="card-icon-${cardSuit}" data-value="${cardValue}"></div><br/><div class="cardContent">${cardName}</div></div>`);
+      $cardHolder.append($genCard);
   } // put the first card face-down, by making it all white
     function hideFirstCard() {
         let $firstInner = $('.cardContent').first();
@@ -69,6 +78,7 @@ class Player {
 
       this.remainingCoins = 5;
       this.playerHand = [];
+      this.$handSum = 0;
   }
   dealCards(num) {
     // push specified # of cards from deck into temp array, then remove from deck
@@ -97,6 +107,15 @@ class Player {
 
         this.playerHand.push(newCards[i]);
         generateCard(thePlayer, tempValue, tempName, tempSuit);
+
+        // run check Functions
+        this.checkForBust();
+        this.checkForBlackjack();
+        // if Dealer check if they've reached 17
+        if (this.playerName === "House-AI") {
+          this.checkFor17();
+        }
+
       }};
 
   listHand() { // log or get names of cards in hand
@@ -105,8 +124,94 @@ class Player {
       console.log(this.playerHand[i].name);
           }
         }
+    checkForBlackjack() {
+      this.$handSum = 0;
+      for (let i=0; i < this.playerHand.length; i++) {
+        this.$handSum += this.playerHand[i].value;
+      }
+      if (this.$handSum === 21) {
+        gameWon = 1;
+        turnCounter += 1;
+        alert(`${this.playerName} has Blackjack!`);
+      } else {
+        console.log(`${this.playerName} does not have Blackjack`);
+        this.$handSum = 0;
+      }
+    }
+
+    checkForBust() {
+      this.$handSum = 0;
+      for (let i=0; i<this.playerHand.length; i++) {
+        this.$handSum += this.playerHand[i].value;
+      }
+      if (this.$handSum > 21) {
+        gameWon = -1;
+        alert(`${this.playerName} is bust over 21`);
+      }
+    }
+
+    checkFor17() {
+      this.$handSum = 0;
+      for (let i=0; i<this.playerHand.length; i++) {
+        this.$handSum += this.playerHand[i].value;
+      }
+      if (this.$handSum > 17) {
+        // ** What should happen after dealer stop @ 17?
+        alert(`${this.playerName} has reached 17`);
+      }
+    }
+
+    getNameAndBet() {
+        //let $modal = $('.modal');
+        //$modal.css('display', 'block');
+        let $modalContent = $('.modal-content-newgame');
+        $modalContent.css('display', 'block');
+
+        let $submit = $('.modal-newgame-submit');
+        $submit.on('click', function(){
+            let $name = $('.name-input').val();
+            this.playerName = $name;
+
+            let $bet = $('.bet-input');
+            currentBet -= $bet;
+            this.remainingCoins -= $bet;
+
+            $modalContent.css('display', 'none');
+            gameWon = 0;
+
+      });
+
+        }
+
+    getBet() {
+        //let $modal = $('.modal');
+        //$modal.css('display', 'block');
+        let $modalContent = $('.modal-content');
+        $modalContent.css('display', 'block');
+
+        let $submit = $('modal-submit');
+        $submit.on('click', function() {
+            let $bet = $('.bet-input');
+            currentBet -= $bet;
+            this.remainingCoins -= $bet;
+
+            $modalContent.css('display', 'none');
+
+          });
+        }
+
 
   } // ---- end Player class
+
+
+// Turn Taking logic
+
+function takeTurns() {
+  //check for Player turn
+  if (gameWon === 0 && turnCounter === 1) {
+    //player1.
+  }
+}
 
 
 // *** HIT button logic
@@ -118,7 +223,7 @@ $('.hit-button').on('click', function() {
 
 // *** STAY button logic
 $('.stay-button').on('click', function() {
-
+    turnCounter += 1;
     console.log('Stay clicked');
     });
 
@@ -141,7 +246,7 @@ function updateBet(num) {
 
 
 
-// *** Execute game flow ***
+// *** for gameStart function - Execute game flow ***
 
 createDeck();
 shuffle(activeDeck);
@@ -156,9 +261,11 @@ player1.dealCards(2);
 
 house.listHand();
 
+player1.getNameAndBet();
+
+
 //player1.listHand();
 //console.log(activeDeck);
-
 
 
 

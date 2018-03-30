@@ -14,8 +14,8 @@ body {
 .dealer-table {
   border: .5px solid black;
   margin: 0 auto;
-  top: 2px;
-  width: 75%;
+  top: 0;
+  max-width: 75%;
   height: 40%;
   background: linear-gradient(#A0522D, #D2691E);
   position: relative;
@@ -25,8 +25,8 @@ body {
 .player-table {
   border: .5px solid black;
   margin: 0 auto;
-  top: 95px;
-  width: 75%;
+  top: -3px;
+  max-width: 75%;
   height: 40%;
   background: linear-gradient(#D2691E, #A0522D);
   position: relative;
@@ -40,7 +40,7 @@ body {
   border: 1px solid black;
   height: 100px;
   border-radius: 15px;
-  top: 45%;
+  top: 25%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -73,11 +73,12 @@ body {
   margin: 0 auto;
   margin-top: -12px;
   font-weight: bold;
-  /*make text un-selectable*/
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+  font-size: 20px;
+  /** Make text un-selectable:
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 .card-icon-spades {
@@ -114,4 +115,56 @@ body {
   width: 25px;
   position: relative;
   margin: 0 auto;
+}
+
+.button-area {
+  margin: 0 auto;
+  max-width: 95%;
+  height: 100px;
+  top: 10%;
+  /*background-color: yellow;*/
+}
+
+.main-buttons {
+  top: -10%;
+  position: relative;
+  left: 15%;
+  /*background-color: red;*/
+}
+
+.main-buttons button {
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 25px;
+  width: 15%;
+  margin-top: 5px;
+  border-radius: 20px;
+}
+
+.main-buttons button:hover {
+  background-color: blue;
+}
+
+.bet-display {
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 50%;
+  height: 40px;
+  top: 30px;
+  /*background-color: yellow;*/
+}
+
+.total-coins {
+  font-weight: bold;
+  font-size: 18px;
+  position: relative;
+  float: left;
+  left: 10px;
+  bottom: 0;
+  width: 80px;
+  height: 40px;
+/*  background-color: yellow;*/
 }

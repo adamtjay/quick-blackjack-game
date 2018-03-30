@@ -2,16 +2,10 @@
 
 $(document).ready(function() {
 
-// Wiggle cards on hover animation
-
-  /*  $('.card').on('mouseover', function() {
-      $(this)
-        .animate({'left':(-1)+'px'},100)
-        .animate({'left':(+2)+'px'},100)
-        .animate({'left':(-1)+'px'},100)});*/
-
 let activeDeck = [];
 let retiredCards = [];
+let remainingCoins = 5;
+let currentBet = 0;
 
 //Classes and objects
 
@@ -33,8 +27,6 @@ function createDeck(){
               activeDeck.push(new Card(n+1, this.names[n], this.suits[s]));
           }
       }
-
-      //console.log(activeDeck);
       return cards;
   }
 
@@ -75,7 +67,7 @@ class Player {
       this.playerNum = num;
       this.playerName = name;
 
-      this.totalCoins = 5;
+      this.remainingCoins = 5;
       this.playerHand = [];
   }
   dealCards(num) {
@@ -108,22 +100,52 @@ class Player {
     console.log(`\*\* ${this.playerName}'s hand: `);
     for (let i=0; i< this.playerHand.length; i++) {
       console.log(this.playerHand[i].name);
-    }
+          }
+        }
+
+  } // end Player class
+
+
+// *** Primary HIT button logic
+$('.hit-button').on('click', function() {
+    player1.dealCards(1);
+
+    });
+
+
+
+
+function updateBet(num) {   // updates bet display message
+  currentBet += num;
+  remainingCoins -= num;
+
+  // bet display after adding to
+  let $betDisplay = $('.bet-display');
+  $betDisplay.text(`Current Bet: ${currentBet} Coins`);
+
+  // total coins display (should include current bet or no?)
+  let $remainingCoins = $('.total-coins');
+  $remainingCoins.text(`Remaining Coins: ${remainingCoins}`);
   }
 
-}
+
+
+
+// *** Execute game flow ***
 
 createDeck();
 shuffle(activeDeck);
 
 let house = new Player(0, "House-AI");
-let adam = new Player(1, "Adam");
+let player1 = new Player(1, "Adam");
+
+updateBet(2);
 
 house.dealCards(2);
-adam.dealCards(2);
+player1.dealCards(2);
 
 house.listHand();
-//adam.listHand();
+//player1.listHand();
 
 console.log(activeDeck);
 

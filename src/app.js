@@ -8,7 +8,8 @@ let activeDeck = [];
 let retiredCards = [];
 let remainingCoins = 5;
 let currentBet = 0;
-let turnCounter = 1;
+let turnCounter = 0;
+let gameStarted = 0;
 let gameWon = -1; // 0 means game has started
 
 
@@ -124,6 +125,7 @@ class Player {
       console.log(this.playerHand[i].name);
           }
         }
+
     checkForBlackjack() {
       this.$handSum = 0;
       for (let i=0; i < this.playerHand.length; i++) {
@@ -136,6 +138,8 @@ class Player {
       } else {
         console.log(`${this.playerName} does not have Blackjack`);
         this.$handSum = 0;
+        //player1.checkGameStatus();
+
       }
     }
 
@@ -145,9 +149,15 @@ class Player {
         this.$handSum += this.playerHand[i].value;
       }
       if (this.$handSum > 21) {
-        gameWon = -1;
+      //  gameWon = -1;
+        //turnCounter = 0;
+        //gameStarted = 0;
         alert(`${this.playerName} is bust over 21`);
+        player1.checkGameStatus();
+
       }
+      //player1.checkGameStatus();
+
     }
 
     checkFor17() {
@@ -170,14 +180,16 @@ class Player {
         let $submit = $('.modal-newgame-submit');
         $submit.on('click', function(){
             let $name = $('.name-input').val();
-            this.playerName = $name;
+            player1.playerName = $name;
 
-            let $bet = $('.bet-input');
-            currentBet -= $bet;
-            this.remainingCoins -= $bet;
+            let $bet = parseInt($('.bet-input').val(), 10);
+            /*currentBet -= $bet;
+            this.remainingCoins -= $bet;*/
+            updateBet($bet);
 
             $modalContent.css('display', 'none');
             gameWon = 0;
+            turnCounter = 1;
 
       });
 
@@ -191,15 +203,31 @@ class Player {
 
         let $submit = $('modal-submit');
         $submit.on('click', function() {
-            let $bet = $('.bet-input');
-            currentBet -= $bet;
-            this.remainingCoins -= $bet;
+            let $bet = parseInt($('.bet-input').val(), 10);
+            /*currentBet -= $bet;
+            this.remainingCoins -= $bet;*/
+            updateBet($bet);
 
             $modalContent.css('display', 'none');
 
           });
         }
 
+    checkGameStatus() {
+      // out of coins, game over
+      if (remainingCoins <= 0) {
+        alert('Out of coins, game over. Please try again');
+        this.getNameAndBet();
+      }
+      // game just started
+      if (gameStarted === 0) {
+          this.getNameAndBet();
+      }
+      // in between rounds during game
+      if (remainingCoins > 0 && turnCounter === 1) {
+        this.getBet();
+      }
+    }
 
   } // ---- end Player class
 
@@ -208,8 +236,16 @@ class Player {
 
 function takeTurns() {
   //check for Player turn
-  if (gameWon === 0 && turnCounter === 1) {
-    //player1.
+
+  player1.checkGameStatus();
+
+  if (gameWon === -1 && turnCounter === 0) {
+    gameStarted = 1;
+    house.dealCards(2);
+    player1.dealCards(2);
+  }
+  if (gameWon === 0 && turnCounter === 2) {
+    console.log('Start dealer turn');
   }
 }
 
@@ -252,16 +288,17 @@ createDeck();
 shuffle(activeDeck);
 
 let house = new Player(0, "House-AI");
-let player1 = new Player(1, "Adam");
+let player1 = new Player(1, "Name");
 
-updateBet(2);
+//updateBet(2);
 
-house.dealCards(2);
-player1.dealCards(2);
+//house.dealCards(2);
+//player1.dealCards(2);
 
 house.listHand();
 
-player1.getNameAndBet();
+//player1.getNameAndBet();
+takeTurns();
 
 
 //player1.listHand();

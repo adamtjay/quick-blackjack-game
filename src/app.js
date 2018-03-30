@@ -71,51 +71,61 @@ class Player {
       this.playerHand = [];
   }
   dealCards(num) {
-    // push specified # of cards from deck into hand, then remove from deck
+    // push specified # of cards from deck into temp array, then remove from deck
+    let newCards = [];
     let thePlayer = this.playerName;
     for (let i=0; i<num; i++) {
-      this.playerHand.push(activeDeck[i]);
+      newCards.push(activeDeck[i]);
       let tempValue = activeDeck[i].value;
       let tempName = activeDeck[i].name;
       let tempSuit = activeDeck[i].suit;
       activeDeck.shift();
     }
-    // callback function which sorts cards based on Value property
+    // callback function which sorts the new cards based on Value property
     function compareValues(a, b) {
       if (a.value < b.value) return -1;
       if (a.value > b.value) return 1;
       return 0;
     } // sort hand with the callback as arg
-    this.playerHand.sort(compareValues);
+    newCards.sort(compareValues);
 
-    // loop again through the now-sorted array, run generateCard
-      for (let i=0; i<this.playerHand.length; i++) {
-        let tempValue = this.playerHand[i].value;
-        let tempName = this.playerHand[i].name;
-        let tempSuit = this.playerHand[i].suit;
+    // loop again through the now-sorted array, push to hand, run generateCard
+      for (let i=0; i<newCards.length; i++) {
+        let tempValue = newCards[i].value;
+        let tempName = newCards[i].name;
+        let tempSuit = newCards[i].suit;
+
+        this.playerHand.push(newCards[i]);
         generateCard(thePlayer, tempValue, tempName, tempSuit);
       }};
 
-  listHand() {
+  listHand() { // log or get names of cards in hand
     console.log(`\*\* ${this.playerName}'s hand: `);
     for (let i=0; i< this.playerHand.length; i++) {
       console.log(this.playerHand[i].name);
           }
         }
 
-  } // end Player class
+  } // ---- end Player class
 
 
-// *** Primary HIT button logic
+// *** HIT button logic
 $('.hit-button').on('click', function() {
     player1.dealCards(1);
 
+    console.log('Player hit: ' + player1.playerHand[player1.playerHand.length-1].name);
+    });
+
+// *** STAY button logic
+$('.stay-button').on('click', function() {
+
+    console.log('Stay clicked');
     });
 
 
+// ** Updating the coin display msgs
 
-
-function updateBet(num) {   // updates bet display message
+function updateBet(num) {
   currentBet += num;
   remainingCoins -= num;
 
@@ -145,9 +155,9 @@ house.dealCards(2);
 player1.dealCards(2);
 
 house.listHand();
-//player1.listHand();
 
-console.log(activeDeck);
+//player1.listHand();
+//console.log(activeDeck);
 
 
 

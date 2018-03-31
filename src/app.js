@@ -121,12 +121,6 @@ class Player {
         console.log(`${this.playerName} hand: ${this.calcPlayerHand()}`);
       };
 
-  /*listHand() { // log or get names of cards in hand
-    console.log(`\*\* ${this.playerName}'s hand: `);
-    for (let i=0; i< this.playerHand.length; i++) {
-      console.log(this.playerHand[i].name);
-          }
-        }*/
 
     checkForBlackjack() {
       let $name = this.playerName;
@@ -142,6 +136,8 @@ class Player {
         turnCounter += 1;
         console.log(`${$name} has Blackjack!`);
         setTimeout(function(){alert(`${$name} has Blackjack!`)}, 200);
+        //house blackjack = prob won, but if player then house still has turn
+        if ($name === "House-AI") {compareHands()};
       } else {
         //console.log(`${$name} does not have Blackjack`);
         this.$handSum = 0;
@@ -161,11 +157,13 @@ class Player {
         //  gameWon = -1;
           turnCounter = 0;
           //gameStarted = 0;
+          compareHands();
+
           setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
 
-          if ($name != "House-AI") {
-            restartRound();
-          }
+
+          setTimeout(restartRound(), 400);
+
           //player1.checkGameStatus();
         }
         //player1.checkGameStatus();
@@ -263,20 +261,18 @@ class Player {
 
 
 // clears board + pushes to retiredCards, update coins, get new bet, start round again
-function restartRound() { // needs updating *** trigger from getBet
+function restartRound() {
 
-  //compareHands();
+      if (gameWon === 1) {
+        remainingCoins += currentBet;
+      }
 
-  if (gameWon === 1) {
-    remainingCoins += currentBet;
-  }
+      retiredCards.push(player1.playerHand);
+      retiredCards.push(house.playerHand);
 
-  retiredCards.push(player1.playerHand);
-  retiredCards.push(house.playerHand);
+      player1.checkGameStatus();
 
-  player1.checkGameStatus();
-
-}
+    }
 
 function restartGame() { // needs updating *** trigger from getNameAndBet
   if (gameWon === 1) {
@@ -298,51 +294,48 @@ function startDealerTurn() {
   // checks and can draw card multiple times, just to make sure it has enough cards
       if (house.checkFor17() === true) {
             //console.log('Dealer has 17');
-            return true;
+            //continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
             //console.log('Dealer has 17');
-            return true;
+          //  continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
             //console.log('Dealer has 17');
-            return true;
+          //  continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
             //console.log('Dealer has 17');
-            return true;
+          //  continue;
           } else {
             house.dealCards(1);
           }
-    // once dealer is done, game is either over(!), or you compare hands
-  compareHands();
-}
+        // once dealer is done game is either already over, or you both stayed, so compare hands
+        if (player1.calcPlayerHand() < 21 && house.calcPlayerHand() < 21) {
+          compareHands();
+              }
+            }
 
 function compareHands() {
     let playersHand = player1.calcPlayerHand();
     let dealersHand = house.calcPlayerHand();
-    /*//Sum values of both their hands separately
-    for (let i=0; i<player1.playerHand.length; i++) {
-      playersHand += player1.playerHand[i].value;
-        }
-    for (let i=0; i<house.playerHand.length; i++) {
-      dealersHand += house.playerHand[i].value;
-    }*/
     //Reponse once a round winner is determined
-    if (playersHand > dealersHand && playersHand < 22) {
-      gameWon = 1;
-      console.log(`${player1.playerName} wins the round!`)};
-    if (dealersHand > playersHand && dealersHand < 22) {
-      gameWon = -1;
-      console.log(`Dealer wins`)};
-            }
-        //  }
+    if ((playersHand > dealersHand && playersHand < 22) || (dealersHand > 21)) {
+        gameWon = 1;
+        console.log(`${player1.playerName} wins the round!`);
+        setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)};
+    if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21)) {
+        gameWon = -1;
+        console.log(`Dealer wins the round`);
+        setTimeout(function(){alert(`Dealer wins the round`)}, 350)};
+          }
+
 
 function hideFirstCard() {
         let $firstInner = $('.cardContent').first();

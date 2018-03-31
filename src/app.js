@@ -70,14 +70,14 @@ function generateCard(thePlayer, cardValue, cardName, cardSuit) {
       player1.checkForBlackjack();
 
   } // put the first card face-down, by making it all white
-    function hideFirstCard() {
+  /*  function hideFirstCard() {
         let $firstInner = $('.cardContent').first();
         $firstInner.css('display', 'none');
         let $firstIcon = $('.cardContent').first().prev().prev();
         $firstIcon.css('display', 'none');
       }
-    hideFirstCard();
-    }
+    hideFirstCard();*/
+  }
 
 class Player {
   constructor(num, name) {
@@ -115,16 +115,18 @@ class Player {
 
         this.playerHand.push(newCards[i]);
         generateCard(thePlayer, tempValue, tempName, tempSuit);
-
-        }
+          }
+          //update player sum display
+        updatePlayerSum();
+        console.log(`${this.playerName} hand: ${this.calcPlayerHand()}`);
       };
 
-  listHand() { // log or get names of cards in hand
+  /*listHand() { // log or get names of cards in hand
     console.log(`\*\* ${this.playerName}'s hand: `);
     for (let i=0; i< this.playerHand.length; i++) {
       console.log(this.playerHand[i].name);
           }
-        }
+        }*/
 
     checkForBlackjack() {
       let $name = this.playerName;
@@ -164,9 +166,7 @@ class Player {
           if ($name != "House-AI") {
             restartRound();
           }
-
           //player1.checkGameStatus();
-
         }
         //player1.checkGameStatus();
       }
@@ -187,9 +187,6 @@ class Player {
     }
 
     getNameAndBet() {
-        //let $modal = $('.modal');
-        //$modal.css('display', 'block');
-
         //restart game mechanics
         remainingCoins = 5;
 
@@ -202,15 +199,14 @@ class Player {
             player1.playerName = $name;
 
             let $bet = parseInt($('.starting-bet-input').val());
-            /*currentBet -= $bet;
-            this.remainingCoins -= $bet;*/
+
+            updatePlayerSum();
             updateBet($bet);
 
             $modalContent.css('display', 'none');
             gameWon = 0;
             turnCounter = 1;
-
-      });
+                });
 
         }
 
@@ -231,6 +227,8 @@ class Player {
 
             gameWon = 0;
             turnCounter = 1;
+
+            updatePlayerSum();
 
             restartRound();
 
@@ -253,7 +251,15 @@ class Player {
       }
     }
 
-  } // ---- end Player class
+    calcPlayerHand() {
+      let $handTotal = 0;
+      for (let i=0; i<this.playerHand.length; i++) {
+          $handTotal += this.playerHand[i].value;
+      }
+      return $handTotal;
+    }
+
+  } // ***** END of Player class *****
 
 
 // clears board + pushes to retiredCards, update coins, get new bet, start round again
@@ -287,7 +293,7 @@ function restartGame() { // needs updating *** trigger from getNameAndBet
 
 function startDealerTurn() {
 
-  //showFirstCard();
+  showFirstCard();
 
   // checks and can draw card multiple times, just to make sure it has enough cards
       if (house.checkFor17() === true) {
@@ -319,15 +325,15 @@ function startDealerTurn() {
 }
 
 function compareHands() {
-    let playersHand = 0;
-    let dealersHand = 0;
-    //Sum values of both their hands separately
+    let playersHand = player1.calcPlayerHand();
+    let dealersHand = house.calcPlayerHand();
+    /*//Sum values of both their hands separately
     for (let i=0; i<player1.playerHand.length; i++) {
       playersHand += player1.playerHand[i].value;
         }
     for (let i=0; i<house.playerHand.length; i++) {
       dealersHand += house.playerHand[i].value;
-    }
+    }*/
     //Reponse once a round winner is determined
     if (playersHand > dealersHand && playersHand < 22) {
       gameWon = 1;
@@ -335,8 +341,15 @@ function compareHands() {
     if (dealersHand > playersHand && dealersHand < 22) {
       gameWon = -1;
       console.log(`Dealer wins`)};
-      }
+            }
+        //  }
 
+function hideFirstCard() {
+        let $firstInner = $('.cardContent').first();
+        $firstInner.css('display', 'none');
+        let $firstIcon = $('.cardContent').first().prev().prev();
+        $firstIcon.css('display', 'none');
+                }
 
 // Turn Taking logic
 
@@ -387,21 +400,27 @@ function updateBet(num) {
 
   // bet display after adding to
   let $betDisplay = $('.bet-display');
-  $betDisplay.text(`Current Bet: ${currentBet} Coins`);
+  $betDisplay.text(`Bet: ${currentBet} Coins`);
 
-  // total coins display (should include current bet or no?)
-  let $remainingCoins = $('.total-coins');
+  let $remainingCoins = $('.remaining-coins');
   $remainingCoins.text(`Remaining Coins: ${remainingCoins}`);
   }
 
   function showFirstCard() {
-      let $firstInner = $('.cardContent').first();
-      $firstInner.css('display' , 'block');
-      $firstInner.removeAttr('style');
-      let $firstIcon = $('.cardContent').first().prev().prev();
-      $firstIcon.css('display' , 'block');
-      $firstIcon.removeAttr('style');
+      let $firstCardInner = $('.cardContent').first();
+      $firstCardInner.removeAttr('style');
+      $firstCardInner.css('display' , 'block');
+      let $firstCardIcon = $('.cardContent').first().prev().prev();
+      $firstCardIcon.removeAttr('style');
+      $firstCardIcon.css('display' , 'block');
 
+  }
+
+  function updatePlayerSum() {
+    // get player sum, update to .player-sum-display
+    let $playerSum = player1.calcPlayerHand();
+    let $playerSumDisplay = $('.player-sum-display');
+    $playerSumDisplay.text(`${player1.playerName}'s Hand: ${$playerSum}`);
   }
 
 
@@ -420,15 +439,13 @@ let player1 = new Player(1, "Name");
 //house.dealCards(2);
 //player1.dealCards(2);
 
-house.listHand();
 
 //player1.getNameAndBet();
 takeTurns();
+hideFirstCard();
 
 
-//player1.listHand();
 //console.log(activeDeck);
-
 
 
 // ** Do not delete below this **

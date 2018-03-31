@@ -116,18 +116,7 @@ class Player {
         this.playerHand.push(newCards[i]);
         generateCard(thePlayer, tempValue, tempName, tempSuit);
 
-        // run check Functions
-    //    this.checkForBust();
-    //    this.checkForBlackjack();
-        // if Dealer check if they've reached 17
-        //if (this.playerName === "House-AI") {
-        //  this.checkFor17()};
         }
-      /*  if (this.playerName === "House-AI") {
-          this.checkFor17();
-        }
-        this.checkForBust();
-        this.checkForBlackjack();*/
       };
 
   listHand() { // log or get names of cards in hand
@@ -212,7 +201,7 @@ class Player {
             let $name = $('.name-input').val();
             player1.playerName = $name;
 
-            let $bet = parseInt($('.bet-input').val(), 10);
+            let $bet = parseInt($('.starting-bet-input').val());
             /*currentBet -= $bet;
             this.remainingCoins -= $bet;*/
             updateBet($bet);
@@ -231,14 +220,17 @@ class Player {
         let $modalContent = $('.modal-content');
         $modalContent.css('display', 'block');
 
-        let $submit = $('modal-submit');
+        let $submit = $('.modal-submit');
         $submit.on('click', function() {
-            let $bet = parseInt($('.bet-input').val(), 10);
+            let bet = parseInt($('.bet-input').val());
             /*currentBet -= $bet;
             this.remainingCoins -= $bet;*/
-            updateBet($bet);
+            updateBet(bet);
 
             $modalContent.css('display', 'none');
+
+            gameWon = 0;
+            turnCounter = 1;
 
             restartRound();
 
@@ -247,7 +239,7 @@ class Player {
 
     checkGameStatus() {
       // out of coins, game over
-      if (remainingCoins === 0 || remainingCoins < 0) {
+      if (gameWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
         setTimeout(function(){alert('Out of coins, game over. Please try again')}, 200);
         setTimeout(function(){player1.getNameAndBet()}, 200);
       }
@@ -271,7 +263,7 @@ function restartRound() { // needs updating *** trigger from getBet
 
   if (gameWon === 1) {
     remainingCoins += currentBet;
-  } else {remainingCoins -= currentBet};
+  }
 
   retiredCards.push(player1.playerHand);
   retiredCards.push(house.playerHand);
@@ -283,7 +275,7 @@ function restartRound() { // needs updating *** trigger from getBet
 function restartGame() { // needs updating *** trigger from getNameAndBet
   if (gameWon === 1) {
     remainingCoins += currentBet;
-  } else {remainingCoins -= currentBet};
+  } //else {remainingCoins -= currentBet};
 
   retiredCards.push(player1.playerHand);
   retiredCards.push(house.playerHand);
@@ -294,6 +286,9 @@ function restartGame() { // needs updating *** trigger from getNameAndBet
 
 
 function startDealerTurn() {
+
+  //showFirstCard();
+
   // checks and can draw card multiple times, just to make sure it has enough cards
       if (house.checkFor17() === true) {
             //console.log('Dealer has 17');
@@ -356,6 +351,7 @@ function takeTurns() {
   }
   if (gameWon === 0 && turnCounter === 2) {
     console.log('Start dealer turn');
+
     startDealerTurn();
 
     restartRound();
@@ -376,6 +372,8 @@ $('.hit-button').on('click', function() {
 $('.stay-button').on('click', function() {
     turnCounter += 1;
 
+    //showFirstCard();
+
     startDealerTurn();
     console.log('Stay clicked');
     });
@@ -384,8 +382,8 @@ $('.stay-button').on('click', function() {
 // ** Updating the coin display msgs
 
 function updateBet(num) {
-  currentBet += num;
-  remainingCoins -= num;
+  currentBet = num;
+  remainingCoins = remainingCoins - num;
 
   // bet display after adding to
   let $betDisplay = $('.bet-display');
@@ -394,6 +392,16 @@ function updateBet(num) {
   // total coins display (should include current bet or no?)
   let $remainingCoins = $('.total-coins');
   $remainingCoins.text(`Remaining Coins: ${remainingCoins}`);
+  }
+
+  function showFirstCard() {
+      let $firstInner = $('.cardContent').first();
+      $firstInner.css('display' , 'block');
+      $firstInner.removeAttr('style');
+      let $firstIcon = $('.cardContent').first().prev().prev();
+      $firstIcon.css('display' , 'block');
+      $firstIcon.removeAttr('style');
+
   }
 
 

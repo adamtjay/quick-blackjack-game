@@ -2,8 +2,6 @@
 
 $(document).ready(function() {
 
-  // will these inits work in a Game state class?
-
 let activeDeck = [];
 let retiredCards = [];
 let remainingCoins = 5;
@@ -68,16 +66,8 @@ function generateCard(thePlayer, cardValue, cardName, cardSuit) {
       $cardHolder.append($genCard);
       player1.checkForBust();
       player1.checkForBlackjack();
-
-  } // put the first card face-down, by making it all white
-  /*  function hideFirstCard() {
-        let $firstInner = $('.cardContent').first();
-        $firstInner.css('display', 'none');
-        let $firstIcon = $('.cardContent').first().prev().prev();
-        $firstIcon.css('display', 'none');
+          }
       }
-    hideFirstCard();*/
-  }
 
 class Player {
   constructor(num, name) {
@@ -154,19 +144,11 @@ class Player {
           this.$handSum += this.playerHand[i].value;
         }
         if (this.$handSum > 21) {
-        //  gameWon = -1;
           turnCounter = 0;
-          //gameStarted = 0;
           compareHands();
-
           setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
-
-
           setTimeout(restartRound(), 400);
-
-          //player1.checkGameStatus();
         }
-        //player1.checkGameStatus();
       }
 
 
@@ -209,16 +191,12 @@ class Player {
         }
 
     getBet() {
-        //let $modal = $('.modal');
-        //$modal.css('display', 'block');
         let $modalContent = $('.modal-content');
         $modalContent.css('display', 'block');
 
         let $submit = $('.modal-submit');
         $submit.on('click', function() {
             let bet = parseInt($('.bet-input').val());
-            /*currentBet -= $bet;
-            this.remainingCoins -= $bet;*/
             updateBet(bet);
 
             $modalContent.css('display', 'none');
@@ -227,9 +205,7 @@ class Player {
             turnCounter = 1;
 
             updatePlayerSum();
-
             restartRound();
-
           });
         }
 
@@ -277,7 +253,7 @@ function restartRound() {
 function restartGame() { // needs updating *** trigger from getNameAndBet
   if (gameWon === 1) {
     remainingCoins += currentBet;
-  } //else {remainingCoins -= currentBet};
+  }
 
   retiredCards.push(player1.playerHand);
   retiredCards.push(house.playerHand);
@@ -293,26 +269,18 @@ function startDealerTurn() {
 
   // checks and can draw card multiple times, just to make sure it has enough cards
       if (house.checkFor17() === true) {
-            //console.log('Dealer has 17');
-            //continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
-            //console.log('Dealer has 17');
-          //  continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
-            //console.log('Dealer has 17');
-          //  continue;
           } else {
             house.dealCards(1);
           }
       if (house.checkFor17() === true) {
-            //console.log('Dealer has 17');
-          //  continue;
           } else {
             house.dealCards(1);
           }
@@ -361,7 +329,6 @@ function takeTurns() {
     startDealerTurn();
 
     restartRound();
-  //  compareHands();
   }
 
 }
@@ -377,8 +344,6 @@ $('.hit-button').on('click', function() {
 // *** STAY button logic
 $('.stay-button').on('click', function() {
     turnCounter += 1;
-
-    //showFirstCard();
 
     startDealerTurn();
     console.log('Stay clicked');
@@ -419,7 +384,7 @@ function updateBet(num) {
 
 
 
-// *** for gameStart function - Execute game flow ***
+// *** for gameStart function - Executing the game flow ***
 
 createDeck();
 shuffle(activeDeck);
@@ -427,13 +392,6 @@ shuffle(activeDeck);
 let house = new Player(0, "House-AI");
 let player1 = new Player(1, "");
 
-//updateBet(2);
-
-//house.dealCards(2);
-//player1.dealCards(2);
-
-
-//player1.getNameAndBet();
 takeTurns();
 hideFirstCard();
 

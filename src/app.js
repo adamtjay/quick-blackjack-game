@@ -425,7 +425,7 @@ createDeck();
 shuffle(activeDeck);
 
 let house = new Player(0, "House-AI");
-let player1 = new Player(1, "Name");
+let player1 = new Player(1, "");
 
 //updateBet(2);
 

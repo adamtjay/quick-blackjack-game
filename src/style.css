@@ -9,6 +9,7 @@ body {
   height: 500px;
   border-radius: 20px;
   background: linear-gradient(darkgreen, green);
+/*  background :url(../img/casino-bg.jpg);*/
 }
 
 .dealer-table {
@@ -192,20 +193,27 @@ body {
   position: absolute;
   z-index: 5000;
   display: none;
-    background-color: #fefefe;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    height: 50%;
+  background: linear-gradient(#cccccc, #fefefe);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 50%;
+  left: 8%;
+  border-radius: 30px;
 }
 
 .modal-content button {
+  border-radius: 20px;
   top: 20%;
   font-size: 30px;
+  padding: 15px;
+  background: linear-gradient(#fefefe, #3b4ca1);
 }
 
 .modal-content input {
+  border-radius: 20px;
+  text-align: center;
   font-size: 30px;
   height: 50px;
   width: 200px;
@@ -213,6 +221,10 @@ body {
 
 .modal-content input:hover {
   background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content input:empty {
+  background: linear-gradient(#ffff66, #fefefe);
 }
 
 .modal-content button:hover {
@@ -243,21 +255,27 @@ display:none;
   position: absolute;
   z-index: 5000;
   display: none;
-    background-color: #fefefe;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    height: 50%;
-    left: 8%;
+  background: linear-gradient(#cccccc, #fefefe);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 50%;
+  left: 8%;
+  border-radius: 30px;
 }
 
 .modal-content-newgame button {
+  border-radius: 20px;
   top: 20%;
   font-size: 30px;
+  padding: 15px;
+  background: linear-gradient(#fefefe, #3b4ca1);
 }
 
 .modal-content-newgame input {
+  border-radius: 20px;
+  text-align: center;
   font-size: 30px;
   height: 50px;
   width: 200px;
@@ -265,6 +283,10 @@ display:none;
 
 .modal-content-newgame input:hover {
   background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content-newgame input:empty {
+  background: linear-gradient(#ffff66, #fefefe);
 }
 
 .modal-content-newgame input:focus {

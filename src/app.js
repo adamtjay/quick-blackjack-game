@@ -124,7 +124,7 @@ class Player {
             setTimeout(function(){alert(`${$name} has Blackjack!`)}, 200);
 
             setTimeout(restartRound(), 500);
-            setTimeout(player1.getBet(), 1200);
+            //setTimeout(player1.getBet(), 1200);
 
             if (turnCounter === 1) {turnCounter = 2};
             if (turnCounter === 2) {turnCounter = 1};
@@ -157,7 +157,7 @@ class Player {
 
             setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
             setTimeout(restartRound(), 500);
-            setTimeout(player1.getBet(), 1200);
+            //setTimeout(player1.getBet(), 1200);
           }    } // end function
 
     checkFor17() {
@@ -224,20 +224,20 @@ class Player {
 
     checkGameStatus() {
           // out of coins, game over
-          if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
+        /*  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
             roundWon = 0;
             turnCounter = 1;
             setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
             setTimeout(function(){player1.getNameAndBet()}, 200);
-          }
-          // game just started
+          }*/
+          // game just started ** ONLY use for this right now...
           if (gameStarted === 0) {
               setTimeout(function(){player1.getNameAndBet()}, 200);
           }
-          // in-between rounds *** CURRENTLY INFINITE LOOPING **
+        /*  // in-between rounds *** CURRENTLY INFINITE LOOPING **
           if (remainingCoins >= 0 && gameStarted === 1) {
             setTimeout(function(){player1.getBet()}, 200);
-          }
+          }*/
 
           // in between rounds during game *** OLD BROKEN PART OF CHECKGAMESTATUS ***
         /*  if (remainingCoins >= 0 && gameStarted != 0) {
@@ -257,18 +257,11 @@ class Player {
 // update coins if round was won, push to retiredCards and clear hand
 function restartRound() {
       if (roundWon === 1) {
-        remainingCoins += currentBet;
+        remainingCoins += (currentBet * 2);
           }
-
-    /*  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
-        roundWon = 0;
-        turnCounter = 1;
-        setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
-      }*/
 
           currentBet = 0;   // new *
           updateBet(currentBet);
-          roundWon = 0;
 
       retiredCards.push(player1.playerHand);
       retiredCards.push(house.playerHand);
@@ -280,8 +273,25 @@ function restartRound() {
         // reset player hands, once other functions have run
           player1.playerHand = [];
           house.playerHand = [];
-
           updatePlayerSum();
+
+          // lost round, out of coins
+      //  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
+        if (roundWon === (-1) && remainingCoins <= 0) {
+                turnCounter = 1;
+                setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
+                setTimeout(player1.getNameAndBet(), 1200);
+          }
+            // lost round, still have coins to continue
+          if (roundWon === (-1) && (remainingCoins > 0)) {
+                turnCounter = 1;
+                setTimeout(player1.getBet(), 1200);
+            }
+            // won round
+          if (roundWon === 1 && remainingCoins > 0) {
+                turnCounter = 1;
+                setTimeout(player1.getBet(), 800);
+            }
 
 
         } // ** end function
@@ -315,15 +325,14 @@ function startDealerTurn() {
 
                       turnCounter = 1;
 
-                      if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
-                        roundWon = 0;
-                        turnCounter = 1;
-                        setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
-                        setTimeout(player1.getNameAndBet(), 1200);
-
+                    /*  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
+                          roundWon = 0;
+                          turnCounter = 1;
+                          setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
+                          setTimeout(player1.getNameAndBet(), 1200);
                       } else {
-                        setTimeout(player1.getBet(), 1200);
-                      }
+                          setTimeout(player1.getBet(), 1200);
+                      }*/
 
 
                       setTimeout(restartRound(), 500);
@@ -335,16 +344,13 @@ function compareHands() {
       let playersHand = player1.calcPlayerHand();
       let dealersHand = house.calcPlayerHand();
       //Reponse once a round winner is determined
-      if ((playersHand > dealersHand && playersHand < 22) || (dealersHand > 21)) {
+      if ((playersHand > dealersHand && playersHand < 22) || (dealersHand > 21 && playersHand < 22)) {
           roundWon = 1;
           console.log(`${player1.playerName} wins the round!`);
           setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)};
 
-        //  setTimeout(player1.getBet(), 600);
-
-          //setTimeout(restartRound, 500);
-      if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21)) {
-          roundWon = -1;
+      if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21 && dealersHand < 22)) {
+          roundWon = (-1);
           console.log(`Dealer wins the round`);
           setTimeout(function(){alert(`Dealer wins the round`)}, 350)};
 
@@ -431,7 +437,7 @@ shuffle(activeDeck);
 let house = new Player(0, "House-AI");
 let player1 = new Player(1, "");
 
-player1.checkGameStatus();
+player1.getNameAndBet();
 //hideFirstCard();
 
 

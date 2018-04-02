@@ -139,7 +139,7 @@ class Player {
 
 
 
-        } // end function
+        } // end function *
 
 
     checkForBust() {

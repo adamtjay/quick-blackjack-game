@@ -124,7 +124,7 @@ class Player {
 
             if (this.playerName != "House-AI") {startDealerTurn()};
             if (this.playerName === "House-AI") {
-              setTimeout(restartRound(), 500);
+            //  setTimeout(restartRound(), 500);
               setTimeout(player1.getBet(), 1200);
                }
 
@@ -157,7 +157,7 @@ class Player {
             compareHands();
 
             setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
-            setTimeout(restartRound(), 500);
+            if (remainingCoins > 0) {setTimeout(restartRound(), 500)};
             setTimeout(player1.getBet(), 1200);
           }    } // end function
 
@@ -174,6 +174,9 @@ class Player {
           }    } // end function
 
     getNameAndBet() {
+
+      restartRound();
+
 
           //restart game mechanics
           remainingCoins = 5;
@@ -206,6 +209,7 @@ class Player {
 
     getBet() {
 
+          restartRound();
           gameStarted = 0;
 
           let $modalContent = $('.modal-content');
@@ -313,8 +317,9 @@ function startDealerTurn() {
                 }
               // once dealer is done game is either already over, or you both stayed, so compare hands
             //  if (player1.calcPlayerHand() < 21 && house.calcPlayerHand() < 21) {
+
+            setTimeout(function() {
                 compareHands();
-              //}
 
                       turnCounter = 1;
 
@@ -329,7 +334,10 @@ function startDealerTurn() {
                       }
 
 
-                      setTimeout(restartRound(), 500);
+
+                    //  setTimeout(restartRound(), 500);
+
+                    }, 300);
                     //  setTimeout(player1.getBet(), 1200);
 
                   } // ** end function
@@ -344,6 +352,8 @@ function compareHands() {
           roundWon = 1;
           console.log(`${player1.playerName} wins the round!`);
           setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)};
+
+          restartRound(); // *** NEWLY added - helping?
 
         //  setTimeout(player1.getBet(), 600);
 
@@ -397,13 +407,14 @@ $('.stay-button').on('click', function() {
 
     //takeTurns();
     startDealerTurn();
-    console.log('Stay clicked');
+    //console.log('Stay clicked');
+
     });
 
 
 function updateBet(num) { // updating coin display messages
-      currentBet = num;
-      remainingCoins = (remainingCoins - num);
+      currentBet = parseInt(num);
+      remainingCoins = remainingCoins - currentBet;
 
       // bet display after adding to
       let $betDisplay = $('.bet-display');

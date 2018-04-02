@@ -117,21 +117,27 @@ class Player {
             this.$handSum += this.playerHand[i].value;
           }
           if (this.$handSum === 21) {
-
-            roundWon = 1;
+            /*if ($name != "House-AI") { roundWon = 1};
+            roundWon = 1;*/
 
             console.log(`${$name} has Blackjack!`);
             setTimeout(function(){alert(`${$name} has Blackjack!`)}, 200);
+
             setTimeout(restartRound(), 500);
             setTimeout(player1.getBet(), 1200);
 
             if (turnCounter === 1) {turnCounter = 2};
+            if (turnCounter === 2) {turnCounter = 1};
 
             //house blackjack = prob won, but if player then house still has turn
             if ($name === "House-AI") {compareHands()};
           } else {
             this.$handSum = 0;
           }
+
+          //startDealerTurn();
+
+
 
         } // end function
 
@@ -145,7 +151,8 @@ class Player {
           }
           if (this.$handSum > 21) {
             this.$handSum = 0;
-            turnCounter = 1;
+              if (turnCounter === 2) {turnCounter = 1};
+            //  turnCounter = 1;
             compareHands();
 
             setTimeout(function(){alert(`${$name} is bust over 21`)}, 200);
@@ -253,6 +260,12 @@ function restartRound() {
         remainingCoins += currentBet;
           }
 
+    /*  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
+        roundWon = 0;
+        turnCounter = 1;
+        setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
+      }*/
+
           currentBet = 0;   // new *
           updateBet(currentBet);
           roundWon = 0;
@@ -298,10 +311,26 @@ function startDealerTurn() {
                   house.dealCards(1);
                 }
               // once dealer is done game is either already over, or you both stayed, so compare hands
-              if (player1.calcPlayerHand() < 21 && house.calcPlayerHand() < 21) {
+            //  if (player1.calcPlayerHand() < 21 && house.calcPlayerHand() < 21) {
                 compareHands();
-                    }
-                    turnCounter = 1;
+              //}
+
+                      turnCounter = 1;
+
+                      if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
+                        roundWon = 0;
+                        turnCounter = 1;
+                        setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
+                        setTimeout(player1.getNameAndBet(), 1200);
+
+                      } else {
+                        setTimeout(player1.getBet(), 1200);
+                      }
+
+
+                      setTimeout(restartRound(), 500);
+                    //  setTimeout(player1.getBet(), 1200);
+
                   } // ** end function
 
 function compareHands() {
@@ -322,8 +351,8 @@ function compareHands() {
           setTimeout(function(){alert(`Dealer wins the round`)}, 350)};
 
           //setTimeout(player1.getBet(), 600)
-
         //  setTimeout(restartRound, 500);
+
         } // end function
 
 
@@ -338,13 +367,7 @@ function takeTurns() {
       hideFirstCard();
 
         // start of new game, turncounter 0
-        setTimeout(function() {
-            /*  if (roundWon === 0 && turnCounter === 0) {
-                gameStarted = 1;
-                house.dealCards(2);
-                player1.dealCards(2);
-                hideFirstCard();
-              }*/
+      setTimeout(function() {
               if (roundWon === 0 && turnCounter === 1) {
                 gameStarted = 1;
                 house.dealCards(2);
@@ -366,8 +389,9 @@ $('.hit-button').on('click', function() {
 
 // *** STAY button logic
 $('.stay-button').on('click', function() {
-    turnCounter += 1;
+    turnCounter = 2;
 
+    //takeTurns();
     startDealerTurn();
     console.log('Stay clicked');
     });
@@ -410,7 +434,7 @@ let house = new Player(0, "House-AI");
 let player1 = new Player(1, "");
 
 player1.checkGameStatus();
-hideFirstCard();
+//hideFirstCard();
 
 
 

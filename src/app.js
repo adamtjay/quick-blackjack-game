@@ -175,8 +175,7 @@ class Player {
 
     getNameAndBet() {
 
-      restartRound();
-
+          restartRound();
 
           //restart game mechanics
           remainingCoins = 5;
@@ -210,6 +209,7 @@ class Player {
     getBet() {
 
           restartRound();
+
           gameStarted = 0;
 
           let $modalContent = $('.modal-content');
@@ -333,8 +333,6 @@ function startDealerTurn() {
                         setTimeout(player1.getBet(), 1200);
                       }
 
-
-
                     //  setTimeout(restartRound(), 500);
 
                     }, 300);
@@ -351,19 +349,20 @@ function compareHands() {
 
           roundWon = 1;
           console.log(`${player1.playerName} wins the round!`);
-          setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)};
+          setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)
+          setTimeout(restartRound(), 800); // *** NEWLY added - helping?
 
-          restartRound(); // *** NEWLY added - helping?
+        };
 
         //  setTimeout(player1.getBet(), 600);
-
           //setTimeout(restartRound, 500);
       //if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21)) {
       if (dealersHand < 22 && (dealersHand > playersHand)) {
           roundWon = -1;
           console.log(`Dealer wins the round`);
-          setTimeout(function(){alert(`Dealer wins the round`)}, 350)};
-
+          setTimeout(function(){alert(`Dealer wins the round`)}, 350)
+          setTimeout(restartRound(), 800); // *** NEWLY added - helping?
+        };
           //setTimeout(player1.getBet(), 600)
         //  setTimeout(restartRound, 500);
 
@@ -414,7 +413,7 @@ $('.stay-button').on('click', function() {
 
 function updateBet(num) { // updating coin display messages
       currentBet = parseInt(num);
-      remainingCoins = remainingCoins - currentBet;
+      remainingCoins = parseInt(remainingCoins - currentBet);
 
       // bet display after adding to
       let $betDisplay = $('.bet-display');

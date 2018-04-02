@@ -193,7 +193,8 @@ background: linear-gradient(darkgreen, green);
   position: absolute;
   z-index: 5000;
   display: none;
-  background: linear-gradient(#cccccc, #fefefe);
+  /*background: linear-gradient(#cccccc, #fefefe);*/
+  background: linear-gradient(#D2691E, #fefefe);
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #888;
@@ -255,13 +256,14 @@ display:none;
   position: absolute;
   z-index: 5000;
   display: none;
-  background: linear-gradient(#cccccc, #fefefe);
+/*  background: linear-gradient(#cccccc, #fefefe);*/
+  background: linear-gradient(#D2691E, #cccccc);
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 60%;
   height: 50%;
-  left: 8%;
+  left: 18%;
   border-radius: 30px;
 }
 

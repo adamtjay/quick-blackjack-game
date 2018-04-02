@@ -71,7 +71,6 @@ class Player {
       this.playerNum = num;
       this.playerName = name;
 
-      this.remainingCoins = 5;
       this.playerHand = [];
       this.$handSum = 0;
   }
@@ -123,8 +122,12 @@ class Player {
             console.log(`${$name} has Blackjack!`);
             setTimeout(function(){alert(`${$name} has Blackjack!`)}, 200);
 
-            setTimeout(restartRound(), 500);
-            setTimeout(player1.getBet(), 1200);
+            if (this.playerName != "House-AI") {startDealerTurn()};
+            if (this.playerName === "House-AI") {
+              setTimeout(restartRound(), 500);
+              setTimeout(player1.getBet(), 1200);
+               }
+
 
             if (turnCounter === 1) {turnCounter = 2};
             if (turnCounter === 2) {turnCounter = 1};
@@ -136,8 +139,6 @@ class Player {
           }
 
           //startDealerTurn();
-
-
 
         } // end function *
 
@@ -173,6 +174,7 @@ class Player {
           }    } // end function
 
     getNameAndBet() {
+
           //restart game mechanics
           remainingCoins = 5;
 
@@ -190,6 +192,9 @@ class Player {
 
               updatePlayerSum();
               updateBet($bet);
+
+              $('.starting-bet-input').val('').removeAttr('selected');
+              $('.name-input').val('').removeAttr('selected');
 
               $modalContent.css('display', 'none');
               roundWon = 0;
@@ -234,7 +239,7 @@ class Player {
           if (gameStarted === 0) {
               setTimeout(function(){player1.getNameAndBet()}, 200);
           }
-          // in-between rounds *** CURRENTLY INFINITE LOOPING **
+          // in-between rounds *** WAS INFINITE LOOPING **
           if (remainingCoins >= 0 && gameStarted === 1) {
             setTimeout(function(){player1.getBet()}, 200);
           }
@@ -257,7 +262,7 @@ class Player {
 // update coins if round was won, push to retiredCards and clear hand
 function restartRound() {
       if (roundWon === 1) {
-        remainingCoins += currentBet;
+        remainingCoins += (currentBet * 2);
           }
 
     /*  if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
@@ -268,7 +273,7 @@ function restartRound() {
 
           currentBet = 0;   // new *
           updateBet(currentBet);
-          roundWon = 0;
+          //roundWon = 0;
 
       retiredCards.push(player1.playerHand);
       retiredCards.push(house.playerHand);
@@ -294,20 +299,16 @@ function restartGame() { // needs updating *** trigger from getNameAndBet
 function startDealerTurn() {
         showFirstCard();
         // checks and can draw card multiple times, just to make sure it has enough cards
-            if (house.checkFor17() === true) {
-                } else {
+        if (house.checkFor17() === false) {
                   house.dealCards(1);
                 }
-            if (house.checkFor17() === true) {
-                } else {
+            if (house.checkFor17() === false) {
                   house.dealCards(1);
                 }
-            if (house.checkFor17() === true) {
-                } else {
+            if (house.checkFor17() === false) {
                   house.dealCards(1);
                 }
-            if (house.checkFor17() === true) {
-                } else {
+            if (house.checkFor17() === false) {
                   house.dealCards(1);
                 }
               // once dealer is done game is either already over, or you both stayed, so compare hands
@@ -318,7 +319,7 @@ function startDealerTurn() {
                       turnCounter = 1;
 
                       if (roundWon === (-1) && (remainingCoins === 0 || remainingCoins < 0)) {
-                        roundWon = 0;
+                      //  roundWon = 0;
                         turnCounter = 1;
                         setTimeout(function(){alert('Out of coins, game over. Please try again')}, 500);
                         setTimeout(player1.getNameAndBet(), 1200);
@@ -337,7 +338,9 @@ function compareHands() {
       let playersHand = player1.calcPlayerHand();
       let dealersHand = house.calcPlayerHand();
       //Reponse once a round winner is determined
-      if ((playersHand > dealersHand && playersHand < 22) || (dealersHand > 21)) {
+    //  if ((playersHand > dealersHand && playersHand < 22) || (dealersHand > 21)) {
+      if (playersHand < 22 && (playersHand > dealersHand)) {
+
           roundWon = 1;
           console.log(`${player1.playerName} wins the round!`);
           setTimeout(function(){alert(`${player1.playerName} wins the round!`)}, 350)};
@@ -345,7 +348,8 @@ function compareHands() {
         //  setTimeout(player1.getBet(), 600);
 
           //setTimeout(restartRound, 500);
-      if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21)) {
+      //if ((dealersHand > playersHand && dealersHand < 22) || (playersHand > 21)) {
+      if (dealersHand < 22 && (dealersHand > playersHand)) {
           roundWon = -1;
           console.log(`Dealer wins the round`);
           setTimeout(function(){alert(`Dealer wins the round`)}, 350)};
@@ -375,9 +379,9 @@ function takeTurns() {
                 hideFirstCard();
               }
               // player turn ended, dealer turn starts
-              if (roundWon === 0 && turnCounter === 2) {
+              /*if (roundWon === 0 && turnCounter === 2) {
                 startDealerTurn();
-              }           }, 100)  } // end function
+              }       */    }, 100)  } // end function
 
 
 // *** HIT button logic
@@ -399,7 +403,7 @@ $('.stay-button').on('click', function() {
 
 function updateBet(num) { // updating coin display messages
       currentBet = num;
-      remainingCoins = remainingCoins - num;
+      remainingCoins = (remainingCoins - num);
 
       // bet display after adding to
       let $betDisplay = $('.bet-display');

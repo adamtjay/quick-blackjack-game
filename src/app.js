@@ -311,9 +311,7 @@ function startDealerTurn() {
                   house.dealCards(1);
                 }
               // once dealer is done game is either already over, or you both stayed, so compare hands
-            //  if (player1.calcPlayerHand() < 21 && house.calcPlayerHand() < 21) {
                 compareHands();
-              //}
 
                       turnCounter = 1;
 

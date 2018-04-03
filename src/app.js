@@ -237,7 +237,7 @@ class Player {
 
           let tempCoins = parseInt(remainingCoins) || 0;
           let $remCoinsMsg = $('.getbet-coins');
-          $remCoinsMsg.append(`Coins remaining: ${tempCoins}`);
+          $remCoinsMsg.text(`Coins remaining: ${tempCoins}`);
 
           let $submit = $('.modal-submit');
           $submit.on('click', function() {

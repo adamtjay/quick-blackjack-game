@@ -1,5 +1,15 @@
 # Project Overview
 
+A quick, ready-to-play game of Blackjack. Currently has the starter actions available, Hit and Stay.
+
+- Enter your name, and a starting bet of up to 10 coins.
+- Choose whether to Hit and get as close to 21 as possible, or Stay with your current hand
+- Winning will give you a gain of coins equal to your bet, get as many coins as possible
+
+----->>> Game Picture 1 - Landing Page: /img/pres-pic-1.png
+----->>> Game Picture 2 - Midgame: /img/pres-pic-2.png
+----->>> Game Picture 3 - Round End: /img/pres-pic-3.png
+
 ## Project Schedule
 
 This schedule will be used to keep track of your progress throughout the week and align with our expectations.  
@@ -64,14 +74,13 @@ Time frames are also key in the development cycle.  You have limited time to cod
 | Component | Priority | Estimated Time | Time Invested | Actual Time |
 | --- | :---: |  :---: | :---: | :---: |
 | Planning & wireframes | H | 3hrs | 3hrs | 3hrs |
-| Creating deck & hands | H | 10hrs| -hrs | -hrs |
-| Dealing cards, hit, stay | H | 10hrs| -hrs | -hrs |
-| Coin betting system | H | 10hrs| -hrs | -hrs |
-| Double-down & split | M | 10hrs| -hrs | -hrs |
-| Viewable used cards list | M | 10hrs| -hrs | -hrs |
-| Tips based on hand | M | 10hrs| -hrs | -hrs |
-| Choose # of decks (4-7) | L | 10hrs | -hrs | -hrs |
-| 2-player mode(s) | L | 10hrs| -hrs | -hrs |
+| Creating deck & hands | H | 10hrs| 2hrs | -hrs |
+| Dealing cards, hit, stay | H | 10hrs| 10hrs | -hrs |
+| Coin betting system | H | 10hrs| 10hrs | -hrs |
+| Double-down & split | Medium | 10hrs| -hrs | -hrs |
+| Viewable used cards list | Low | 10hrs| -hrs | -hrs |
+| Tips based on hand | Low | 10hrs| -hrs | -hrs |
+| FIXING ALL THE BUGS | | Infinity | | |
 | --- | :---: |  :---: | :---: | :---: |
 | --- Total --- |  | 50-70hrs| -hrs | -hrs |
 

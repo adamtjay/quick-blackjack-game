@@ -1,0 +1,312 @@
+body {
+  margin: 0 auto;
+  max-width: 80%;
+  text-align: center;
+}
+
+.main {
+  border: 1px solid black;
+  height: 500px;
+  border-radius: 20px;
+background: linear-gradient(darkgreen, green);
+/*background :url(../img/casino-bg.jpg);*/
+}
+
+.dealer-table {
+  border: .5px solid black;
+  margin: 0 auto;
+  top: 0;
+  max-width: 75%;
+  height: 40%;
+  background: linear-gradient(#A0522D, #D2691E);
+  position: relative;
+  border-radius: 20px;
+}
+
+.player-table {
+  border: .5px solid black;
+  margin: 0 auto;
+  top: -3px;
+  max-width: 75%;
+  height: 40%;
+  background: linear-gradient(#D2691E, #A0522D);
+  position: relative;
+  border-radius: 20px;
+}
+
+.player-card-holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 65%;
+  border: 1px solid black;
+  height: 100px;
+  border-radius: 15px;
+  top: 10%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.house-card-holder {
+  position: relative;
+  margin: 0 auto;
+  max-width: 65%;
+  border: 1px solid black;
+  height: 100px;
+  border-radius: 15px;
+  top: 5%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  top: 5px;
+  left: 5px;
+  margin: 0 auto;
+  margin-left: 5px;
+  height: 85px;
+  width: 60px;
+  border: 1px solid black;
+  position: relative;
+  background:  linear-gradient(#f3fbcb, #FFFFFF);
+  border-radius: 10px;
+  float: left;
+}
+
+
+.cardContent {
+  margin: 0 auto;
+  margin-top: -12px;
+  font-weight: bold;
+  font-size: 20px;
+  /** Make text un-selectable:
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.card-icon-spades {
+  content:url(../img/suit_spades.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 23px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-hearts {
+  content:url(../img/suit_hearts.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 28px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-clubs {
+  content:url(../img/suit_clubs.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 28px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.card-icon-diamonds {
+  content:url(../img/suit_diamond.png);
+  padding-top: 5px;
+  height: 30px;
+  width: 25px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.button-area {
+  margin: 0 auto;
+  max-width: 95%;
+  height: 100px;
+  top: 10%;
+  /*background-color: yellow;*/
+}
+
+.main-buttons {
+  top: -10%;
+  position: relative;
+  left: 15%;
+  /*background-color: red;*/
+}
+
+.main-buttons button {
+  background:  linear-gradient(#dbfd2b, #FFFFFF);
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 25px;
+  width: 15%;
+  margin-top: 5px;
+  border-radius: 20px;
+}
+
+.main-buttons button:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.bet-display {
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 50%;
+  height: 40px;
+  top: 30px;
+  /*background-color: yellow;*/
+}
+
+.remaining-coins {
+  font-weight: bold;
+  font-size: 18px;
+  position: relative;
+  float: left;
+  left: 10px;
+  bottom: 20%;
+  width: 80px;
+  height: 40px;
+/*  background-color: yellow;*/
+}
+
+/*.modal {     ** OVERLAY that goes behind Modal, currently not using
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+} */
+
+.modal-content {
+  top: 20%;
+  font-size: 30px;
+  position: absolute;
+  z-index: 5000;
+  display: none;
+  /*background: linear-gradient(#cccccc, #fefefe);*/
+  background: linear-gradient(#D2691E, #fefefe);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  height: 40%;
+  left: 18%;
+  border-radius: 30px;
+}
+
+.modal-content button {
+  border-radius: 20px;
+  top: 20%;
+  font-size: 30px;
+  padding: 15px;
+  background: linear-gradient(#fefefe, #3b4ca1);
+}
+
+.modal-content input {
+  border-radius: 20px;
+  text-align: center;
+  font-size: 30px;
+  height: 50px;
+  width: 200px;
+}
+
+.modal-content input:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content input:empty {
+  background: linear-gradient(#ffff66, #fefefe);
+}
+
+.modal-content button:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+span {
+display:none;
+}
+
+.modal-content-newgame {
+  top: 20%;
+  font-size: 30px;
+  position: absolute;
+  z-index: 5000;
+  display: none;
+/*  background: linear-gradient(#cccccc, #fefefe);*/
+  background: linear-gradient(#D2691E, #cccccc);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  height: 50%;
+  left: 18%;
+  border-radius: 30px;
+}
+
+.modal-content-newgame button {
+  border-radius: 20px;
+  top: 20%;
+  font-size: 30px;
+  padding: 15px;
+  background: linear-gradient(#fefefe, #3b4ca1);
+}
+
+.modal-content-newgame input {
+  border-radius: 20px;
+  text-align: center;
+  font-size: 30px;
+  height: 50px;
+  width: 200px;
+}
+
+.modal-content-newgame input:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content-newgame input:empty {
+  background: linear-gradient(#ffff66, #fefefe);
+}
+
+.modal-content-newgame input:focus {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.modal-content-newgame button:hover {
+  background: linear-gradient(#9baaf4, #3b4ca1);
+}
+
+.player-sum-display {
+    font-weight: bold;
+    font-size: 25px;
+    letter-spacing: 1.5px;
+    position: relative;
+    margin: 0 auto;
+    max-width: 50%;
+    height: 40px;
+    top: 10%;
+    /*background-color: yellow;*/
+}
